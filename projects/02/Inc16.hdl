@@ -1,0 +1,27 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/02/Inc16.hdl
+
+/**
+ * 16-bit incrementer:
+ * out = in + 1 (arithmetic addition)
+ */
+
+CHIP Inc16 {
+    IN in[16];
+    OUT out[16];
+
+    PARTS:
+	Not16(in=in,out=m);
+	And16(a=in,b=m,out=zeros);
+	
+	
+	Not(in=in[0], out=o);
+	And(a=in[0],b=o,out=z);
+	Not(in=z,out=one);
+	MakeOne16(a=zeros,b=one,out=justone);
+	
+	
+	Add16(a=in, b=justone, out=out);
+}
