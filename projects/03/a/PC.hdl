@@ -16,17 +16,26 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
+	//All rubbish, doesn't work with sequential logic
 	//Setup register
-	Register(in = in, load = load, out = regOut);
-	
+	//Register(in = in, load = load, out = regOut,out=out);
 	//Check for reset
-	Not(in=reset, out=notzx);
-	Make16(a=notzx,out=notzx16);
-	And16(a=notzx16, b=regOut, out=resOut);
-	
+	//Not(in=reset, out=notzx);
+	//Make16(a=notzx,out=notzx16);
+	//And16(a=notzx16, b=regOut, out=resOut);
 	//Check for Increment
-	Buffer16(a=inc,out = inc16);
-	Add16(a=inc16,b=resOut,out=out);
+	//Buffer16(a=inc,out = inc16);
+	//Add16(a=inc16,b=resOut,out=incout);
 	
+	//nicked off github
+	Inc16(in=oo,out=incd);
+
+	Mux16(a=oo,b=incd,sel=inc,out=o);
+
+	Mux16(a=o,b=in,sel=load,out=uu);
+
+	Mux16(a=uu,b[0..15]=false,sel=reset,out=this);
+	
+	Register(in=this,load=true,out=out,out=oo);
 	
 }
