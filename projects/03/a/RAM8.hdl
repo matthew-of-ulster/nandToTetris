@@ -24,5 +24,6 @@ CHIP RAM8 {
 	Register(in = in, load = f, out = f1);
 	Register(in = in, load = g, out = g1);
 	Register(in = in, load = h, out = h1);
+	
 	Mux8Way16(a=a1, b=b1,c=c1,d=d1,e=e1,f=f1,g=g1,h=h1,sel=address,out=out);
 }

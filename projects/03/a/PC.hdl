@@ -16,5 +16,17 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+	//Setup register
+	Register(in = in, load = load, out = regOut);
+	
+	//Check for reset
+	Not(in=reset, out=notzx);
+	Make16(a=notzx,out=notzx16);
+	And16(a=notzx16, b=regOut, out=resOut);
+	
+	//Check for Increment
+	Buffer16(a=inc,out = inc16);
+	Add16(a=inc16,b=resOut,out=out);
+	
+	
 }
